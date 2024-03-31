@@ -2,7 +2,7 @@
 const express = require("express");
 const route = express.Router();
 // 连接数据库池
-let db = require("../database");
+let db = require("../../database");
 
 const MD5 = require("crypto-js/md5");
 /**

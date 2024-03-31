@@ -5,18 +5,8 @@ const app = express();
 const routes = require("./routes/index");
 routes(app);
 
-let db = require("./database");
-
 app.get("/", (req, res) => {
-    const sql = "SELECT * FROM news";
-    db.query(sql, (err, solution) => {
-        if (err) {
-            throw error;
-        } else {
-            // const JSONResult = JSON.stringify(solution);
-            res.json(solution);
-        }
-    });
+    res.send("服务器访问成功");
 });
 
 app.listen(233, (req, res) => {
