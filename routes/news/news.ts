@@ -4,14 +4,12 @@ const route = express.Router();
 // 连接数据库池
 let db = require("../../database");
 
-/**
- * 查询所有新闻
- */
-route.get("/select", (req, res) => {
+// 查询所有新闻
+route.get("/select", (req: any, res: any) => {
     const sql = "SELECT * FROM news";
-    db.query(sql, (err, solution) => {
+    db.query(sql, (err: any, solution: any) => {
         if (err) {
-            throw error;
+            throw err;
         } else {
             // const JSONResult = JSON.stringify(solution);
             res.json(solution);
@@ -19,13 +17,9 @@ route.get("/select", (req, res) => {
     });
 });
 
-/**
- * news_id为news_id的点赞、新闻收藏数+1
- * @param what  enum('star', 'praise')
- * @param news_id
- * @param is_add
- */
-route.get("/addreduce", (req, res) => {
+// news_id为news_id的点赞、新闻收藏数+1
+route.get("/addreduce", (req: any, res: any) => {
+    
     let what = req.query.what;
     let news_id = req.query.news_id;
     let is_add = req.query.is_add;
@@ -34,7 +28,7 @@ route.get("/addreduce", (req, res) => {
         is_add == "true" ? "+1" : "-1"
     } WHERE news_id=${news_id}`;
 
-    db.query(sql, (err, solution) => {
+    db.query(sql, (err: any, solution: any) => {
         if (err) {
             throw err;
         } else {
