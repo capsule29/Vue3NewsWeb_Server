@@ -21,6 +21,7 @@
 ```sh
 pm2 start <文件名>
 pm2 log
+pm2 list
 pm2 delete <进程id>
 pm2 restart <进程id>
 pm2 monit
