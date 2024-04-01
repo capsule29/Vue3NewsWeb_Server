@@ -1,6 +1,7 @@
 # Vue3NewsWeb_Server
 
 运行`pm2 start --interpreter ts-node-dev app.ts`
+
 运行`npm run pm2`
 
 # pm2
