@@ -1,5 +1,6 @@
 import express from "express";
-const app = express();
+import type { Express } from "express";
+const app: Express = express();
 
 // 导入所有子路由
 const routes = require("./routes/index");
