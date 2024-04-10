@@ -8,9 +8,8 @@ import { Comment } from "../../model/comment";
 let db = require("../../database");
 
 // 以news_id查询所有相关评论
-router.get("/select", (req: any, res: any) => {
-    const query = req.query as News;
-    const news_id = query.news_id;
+router.get("/select/byId", (req: any, res: any) => {
+    const news_id = req.query.news_id;
     const sql = `SELECT * FROM comment WHERE news_id=${news_id}`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
@@ -22,14 +21,12 @@ router.get("/select", (req: any, res: any) => {
 });
 // 添加评论
 router.get("/add", (req: any, res: any) => {
-    const query = req.query as Comment;
-
-    const user_id = query.user_id;
-    const news_id = query.news_id;
-    const comment_content = query.comment_content;
-    const comment_created_at = new Date().toString();
+    const news_id = req.query.news_id;
+    const user_id = req.query.user_id;
+    const comment_content = req.query.comment_content;
+    const comment_created_time = new Date().toString();
     // 点赞数0
-    const sql = `INSERT INTO comment (user_id, news_id, comment_content, comment_created_at,comment_praise_number) VALUES (${user_id},${news_id},'${comment_content}','${comment_created_at}',0)`;
+    const sql = `INSERT INTO comment (user_id, news_id, comment_content, comment_created_time,comment_praise_number) VALUES (${user_id},${news_id},'${comment_content}','${comment_created_time}',0)`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             throw err;
@@ -38,4 +35,17 @@ router.get("/add", (req: any, res: any) => {
         }
     });
 });
+
+router.get("/delete", (req: any, res: any) => {
+    const comment_id = req.query.comment_id;
+    const sql = `DELETE FROM comment WHERE comment_id=${comment_id}`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            throw err;
+        } else {
+            res.json(solution);
+        }
+    });
+});
+
 module.exports = router;
