@@ -2,17 +2,16 @@
 import express = require("express");
 const router = express.Router();
 
-import { News } from "../../model/news";
-import { Comment } from "../../model/comment";
 // 连接数据库池
 let db = require("../../database");
 
 // 以news_id查询所有相关评论
 router.get("/select/byId", (req: any, res: any) => {
     const news_id = req.query.news_id;
-    const sql = `SELECT * FROM comment WHERE news_id=${news_id}`;
+    const sql = `SELECT comment.*,user.user_name FROM comment,user WHERE comment.news_id='${news_id}' AND comment.user_id=user.user_id`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json(solution);
@@ -29,6 +28,7 @@ router.get("/add", (req: any, res: any) => {
     const sql = `INSERT INTO comment (user_id, news_id, comment_content, comment_created_time,comment_praise_number) VALUES (${user_id},${news_id},'${comment_content}','${comment_created_time}',0)`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json("ok");
@@ -41,9 +41,10 @@ router.get("/delete", (req: any, res: any) => {
     const sql = `DELETE FROM comment WHERE comment_id=${comment_id}`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
-            res.json(solution);
+            res.json("ok");
         }
     });
 });

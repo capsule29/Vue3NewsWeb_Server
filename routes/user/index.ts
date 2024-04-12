@@ -9,6 +9,7 @@ router.get("/select/all", (req: any, res: any) => {
     const sql = "SELECT * FROM user";
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             // console.log(solution[0].user_name);
@@ -22,6 +23,7 @@ router.get("/select", (req: any, res: any) => {
     const sql = "SELECT * FROM user";
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json(solution);
@@ -34,6 +36,7 @@ router.get("/get_name_by_id", (req: any, res: any) => {
     const sql = `SELECT user_name FROM user WHERE user_id='${user_id}'`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             // console.log(solution[0].user_name);
@@ -54,6 +57,7 @@ router.get("/add", (req: any, res: any) => {
     const sql = `INSERT INTO user (user_name, password, department_id, authority_id) VALUES ('${user.user_name}','${user.password}','${user.department_id}','${user.authority_id}')`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json("ok");
@@ -68,6 +72,7 @@ router.get("/delete", (req: any, res: any) => {
     const sql = `DELETE FROM user WHERE user_id='${user_id}'`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json("ok");
@@ -88,6 +93,7 @@ router.get("/update", (req: any, res: any) => {
     const sql = `UPDATE user SET user_name='${user_name}',password='${password}',authority_id='${authority_id}',department_id='${department_id}' WHERE user_id='${user_id}'`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
+            res.json("error");
             throw err;
         } else {
             res.json("ok");

@@ -13,10 +13,12 @@ var pool = mysql.createPool({
 function query(sql, callback) {
     pool.getConnection((err, connection) => {
         if (err) {
+            // callback(err, "null");
             throw err;
         } else {
             connection.query(sql, (err, datas) => {
                 if (err) {
+                    // callback(err, "null");
                     throw err;
                 }
                 callback(err, datas);
