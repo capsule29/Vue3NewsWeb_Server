@@ -44,8 +44,7 @@ router.get("/select/byUser", (req: any, res: any) => {
                     data.push(element);
                 }
             }
-
-            res.json(solution);
+            res.json(data);
         }
     });
 });
