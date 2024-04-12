@@ -29,6 +29,22 @@ router.get("/select/byUser", (req: any, res: any) => {
             res.json("error");
             throw err;
         } else {
+            const data: News[] = [];
+            for (let index = 0; index < solution.length; index++) {
+                const element: News = solution[index];
+                const news_dps: string = element.news_dps;
+                if (news_dps != "-1") {
+                    // 不是全部可见
+                    const news_dps_list: string[] = news_dps.split(",");
+                    if (news_dps_list.indexOf(department_id) == -1) {
+                        data.push(element);
+                    }
+                } else if (news_dps == "-1") {
+                    // 全部可见
+                    data.push(element);
+                }
+            }
+
             res.json(solution);
         }
     });
