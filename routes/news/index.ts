@@ -23,7 +23,8 @@ router.get("/select/all", (req: any, res: any) => {
 // 用户查询能见新闻
 router.get("/select/byUser", (req: any, res: any) => {
     const department_id = req.query.department_id;
-    const sql = "SELECT * FROM news";
+    const sql =
+        "SELECT news.*,user.user_name as news_writer_name FROM news,user WHERE news.news_writer_id=user.user_id";
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
@@ -101,10 +102,6 @@ router.get("/delete", (req: any, res: any) => {
 router.get("/add", (req: any, res: any) => {
     const query = req.query as News;
     const news = {
-        // news_title: query.news_title,
-        // news_content: query.news_content,
-        // news_writer_id: query.news_writer_id,
-        // news_created_time: new Date().toString(),
         news_title: "在此修改标题",
         news_content: "请修改内容",
         news_writer_id: query.news_writer_id,
@@ -132,16 +129,58 @@ router.get("/getLatestNewsId", (req: any, res: any) => {
     });
 });
 
-// news_id为news_id的点赞、新闻收藏数+1
-router.get("/addreduce", (req: any, res: any) => {
-    let what: string = req.query.what;
+router.get("/select/all/byId", (req: any, res: any) => {
+    const news_id = req.query.news_id;
+    const sql = `SELECT news.*,user.user_name as news_writer_name FROM news,user WHERE news_id='${news_id}' AND news.news_writer_id=user.user_id`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            throw err;
+        } else {
+            res.json(solution[0]);
+        }
+    });
+});
+
+/*=========================点赞收藏=========================*/
+router.get("/praise", (req: any, res: any) => {
     let news_id: number = req.query.news_id;
-    let is_add: string = req.query.is_add;
-
-    const sql = `UPDATE news SET news_${what}_number=news_${what}_number${
-        is_add == "true" ? "+1" : "-1"
-    } WHERE news_id=${news_id}`;
-
+    const sql = `UPDATE news SET news_praise_number=news_praise_number+1 WHERE news_id=${news_id}`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            res.json("error");
+            throw err;
+        } else {
+            res.send("ok");
+        }
+    });
+});
+router.get("/depraise", (req: any, res: any) => {
+    let news_id: number = req.query.news_id;
+    const sql = `UPDATE news SET news_praise_number=news_praise_number-1 WHERE news_id=${news_id}`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            res.json("error");
+            throw err;
+        } else {
+            res.send("ok");
+        }
+    });
+});
+router.get("/star", (req: any, res: any) => {
+    let news_id: number = req.query.news_id;
+    const sql = `UPDATE news SET news_star_number=news_star_number+1 WHERE news_id=${news_id}`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            res.json("error");
+            throw err;
+        } else {
+            res.send("ok");
+        }
+    });
+});
+router.get("/destar", (req: any, res: any) => {
+    let news_id: number = req.query.news_id;
+    const sql = `UPDATE news SET news_star_number=news_star_number-1 WHERE news_id=${news_id}`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
