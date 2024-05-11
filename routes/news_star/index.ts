@@ -39,8 +39,15 @@ router.get("/all_news", (req: any, res: any) => {
 						ELSE 1
 					END
 				) as is_stared,
+				(CASE
+						WHEN p.praise_id IS NULL THEN 0
+						ELSE 1
+					END
+				) as is_praised,
 				n.*
 FROM news_star as s, news as n
+LEFT JOIN news_praise as p
+ON (p.user_id = ${user_id} AND p.news_id = n.news_id)
 WHERE s.user_id = ${user_id} AND s.news_id = n.news_id`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
