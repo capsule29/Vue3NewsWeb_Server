@@ -12,7 +12,7 @@ router.get("/select/byId", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json(solution);
         }
@@ -29,7 +29,7 @@ router.get("/add", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -42,7 +42,7 @@ router.get("/delete", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -54,7 +54,7 @@ router.get("/praise", (req: any, res: any) => {
     const sql = `UPDATE comment SET comment_praise_number=comment_praise_number+1 WHERE comment_id=${comment_id}`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -66,7 +66,7 @@ router.get("/depraise", (req: any, res: any) => {
     const sql = `UPDATE comment SET comment_praise_number=comment_praise_number-1 WHERE comment_id=${comment_id}`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }

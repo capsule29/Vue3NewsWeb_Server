@@ -13,22 +13,33 @@ router.get("/select/all", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json(solution);
         }
     });
 });
 
-// 用户查询能见新闻
+// 用户查询所处部门能见到的新闻
 router.get("/select/byUser", (req: any, res: any) => {
+    const user_id = req.query.user_id;
     const department_id = req.query.department_id;
-    const sql =
-        "SELECT news.*,user.user_name as news_writer_name FROM news,user WHERE news.news_writer_id=user.user_id";
+    const sql = `SELECT (CASE
+					WHEN s.star_id IS NULL THEN 0
+					WHEN s.star_id IS NOT NULL THEN 1
+				END
+				) as is_stared,
+				u.user_name as news_writer_name,
+				n.*
+                FROM user as u
+				RIGHT JOIN news as n
+				ON (n.news_writer_id=u.user_id)
+				LEFT JOIN news_star as s
+				ON (s.news_id=n.news_id AND s.user_id = ${user_id})`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             const data: News[] = [];
             for (let index = 0; index < solution.length; index++) {
@@ -57,7 +68,7 @@ router.get("/select/content/byId", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json(solution[0].news_content);
         }
@@ -76,7 +87,7 @@ router.get("/update", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -91,7 +102,7 @@ router.get("/delete", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -111,7 +122,7 @@ router.get("/add", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -122,7 +133,19 @@ router.get("/getLatestNewsId", (req: any, res: any) => {
     const sql = `SELECT news_id FROM news ORDER BY news_id DESC LIMIT 1`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
-            throw err;
+            // throw err;
+        } else {
+            res.json(solution);
+        }
+    });
+});
+
+router.get("/select/byEditor", (req: any, res: any) => {
+    const writer_id = req.query.writer_id;
+    const sql = `SELECT news.*,user.user_name as news_writer_name FROM news,user WHERE news.news_writer_id='${writer_id}' AND news.news_writer_id=user.user_id`;
+    db.query(sql, (err: any, solution: any) => {
+        if (err) {
+            // throw err;
         } else {
             res.json(solution);
         }
@@ -134,7 +157,7 @@ router.get("/select/all/byId", (req: any, res: any) => {
     const sql = `SELECT news.*,user.user_name as news_writer_name FROM news,user WHERE news_id='${news_id}' AND news.news_writer_id=user.user_id`;
     db.query(sql, (err: any, solution: any) => {
         if (err) {
-            throw err;
+            // throw err;
         } else {
             res.json(solution[0]);
         }
@@ -148,7 +171,7 @@ router.get("/praise", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.send("ok");
         }
@@ -160,7 +183,7 @@ router.get("/depraise", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.send("ok");
         }
@@ -172,7 +195,7 @@ router.get("/star", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.send("ok");
         }
@@ -184,7 +207,7 @@ router.get("/destar", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.send("ok");
         }

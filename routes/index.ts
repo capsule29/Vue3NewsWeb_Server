@@ -7,6 +7,8 @@ const login = require("./login/index.ts");
 const authority = require("./authority/index.ts");
 const department = require("./department/index.ts");
 const user = require("./user/index.ts");
+const news_star = require("./news_star/index.ts");
+const news_praise = require("./news_praise/index.ts");
 
 module.exports = (app: Express) => {
     app.use("/news", news);
@@ -15,4 +17,6 @@ module.exports = (app: Express) => {
     app.use("/authority", authority);
     app.use("/department", department);
     app.use("/user", user);
+    app.use("/news_star", news_star);
+    app.use("/news_praise", news_praise);
 };

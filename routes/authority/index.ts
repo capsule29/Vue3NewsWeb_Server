@@ -7,7 +7,7 @@ router.get("/select", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             // console.log(solution);
             res.json(solution);
@@ -21,7 +21,7 @@ router.get("/add", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -34,7 +34,7 @@ router.get("/delete", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }
@@ -48,7 +48,7 @@ router.get("/update", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             res.json("ok");
         }

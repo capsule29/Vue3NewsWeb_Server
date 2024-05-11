@@ -18,7 +18,7 @@ router.get("/", (req: any, res: any) => {
     db.query(sql, (err: any, solution: any[]) => {
         if (err) {
             res.json("error");
-            throw err;
+            // throw err;
         } else {
             // console.log(solution);
             // 设置cookie
