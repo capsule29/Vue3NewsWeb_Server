@@ -28,3 +28,6 @@ pm2 delete <进程id>
 pm2 restart <进程id>
 pm2 monit
 ```
+
+# mysql文件
+`corporate_news_release_system.sql`，导入到mysql中即可使用。
