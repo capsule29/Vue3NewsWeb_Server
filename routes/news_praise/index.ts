@@ -2,7 +2,7 @@ import { NewsPraise } from "../../model/news_praise/index";
 const express = require("express");
 const router = express.Router();
 
-const db = require("../../database");
+const db = require("../../mysql2_database");
 
 
 router.get("/add", (req: any, res: any) => {

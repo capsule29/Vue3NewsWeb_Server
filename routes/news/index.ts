@@ -4,7 +4,7 @@ import { News } from "../../model/news";
 const express = require("express");
 const router = express.Router();
 // 连接数据库池
-const db = require("../../database");
+const db = require("../../mysql2_database");
 
 // 管理员查询所有新闻以及作者用户名
 router.get("/select/all", (req: any, res: any) => {

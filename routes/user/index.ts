@@ -3,7 +3,7 @@ import { User } from "../../model/user";
 const express = require("express");
 const router = express.Router();
 
-const db = require("../../database");
+const db = require("../../mysql2_database");
 
 router.get("/select/all", (req: any, res: any) => {
     const sql = "SELECT * FROM user";

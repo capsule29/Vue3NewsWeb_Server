@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
+const db = require("../../mysql2_database");
 
 router.get("/select", (req: any, res: any) => {
     const sql = `SELECT * FROM authority`;
