@@ -2,7 +2,8 @@ import { NewsPraise } from "../../model/news_praise/index";
 const express = require("express");
 const router = express.Router();
 
-let db = require("../../database");
+const db = require("../../database");
+
 
 router.get("/add", (req: any, res: any) => {
     const user_id = req.query.user_id;

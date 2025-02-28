@@ -3,7 +3,7 @@ import express = require("express");
 const router = express.Router();
 
 // 连接数据库池
-let db = require("../../database");
+const db = require("../../database");
 
 // 以news_id查询所有相关评论
 router.get("/select/byId", (req: any, res: any) => {

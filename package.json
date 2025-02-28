@@ -1,16 +1,16 @@
 {
     "name": "express_server",
     "version": "1.0.0",
-    "description": "运行`pm2 start app.js`",
+    "description": "",
     "main": "app.ts",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "start": "ts-node app.ts",
-        "pm2": "pm2 start --interpreter ts-node-dev app.ts"
+        "pm2": "pm2 start app.ts"
     },
     "author": "Capsule",
     "license": "ISC",
     "dependencies": {
+        "bun": "^1.2.4",
         "crypto-js": "^4.2.0",
         "express": "^4.19.0",
         "mysql": "^2.18.1"

@@ -3,7 +3,7 @@ import express from "express";
 import { User } from "../../model/user";
 const router = express.Router();
 // 连接数据库池
-let db = require("../../database");
+const db = require("../../database");
 
 // 用户登录
 router.get("/", (req: any, res: any) => {
